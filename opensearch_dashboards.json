@@ -1,0 +1,9 @@
+{
+  "id": "opensearchDashboardXlsxImport",
+  "version": "opensearchDashboards",
+  "server": true,
+  "ui": true,
+  "requiredPlugins": ["navigation"],
+  "optionalPlugins": [],
+  "configPath": "osd_xlsx_import"
+}
