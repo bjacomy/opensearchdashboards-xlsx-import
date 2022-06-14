@@ -1,20 +1,23 @@
 # set your token
 #export GITHUB_TOKEN=...
 
-USER="Orange-OpenSource"
-REPO="opensearchdashboards-xlsx-import"
+USER="bjacomy"
+REPO="osd-xlsx-import"
 BUILD_VERSION="1"
 SKIP_INSTALL_DEPS="false"
 
 # get the params
 while getopts b:k:u:s option
 do
+    echo "${option}"
+    echo  "${OPTARG}"
+
     case "${option}"
     in
-        b) BUILD_VERSION=${OPTARG};
+        b) BUILD_VERSION=${OPTARG};;
         k) OPENSEARCH_DASHBOARDS_VERSION=${OPTARG};;
         u) USER=${OPTARG};;
-        s) SKIP_INSTALL_DEPS="true"
+        s) SKIP_INSTALL_DEPS="true";;
     esac
 done
 
@@ -35,7 +38,7 @@ echo
 if [ "${SKIP_INSTALL_DEPS}" = "false" ]; then 
     echo "Install opensearch-dashboards dependencies..."
     echo 
-    yarn kbn bootstrap 
+    yarn osd bootstrap 
 else
     echo "Skip installing opensearch-dashboards dependencies..."
 fi
@@ -44,7 +47,8 @@ fi
 echo
 echo "Build opensearch-dashboards plugin package..."
 echo
-yarn build -b ${TAG_NAME} -k ${OPENSEARCH_DASHBOARDS_VERSION}
+#yarn build -b ${TAG_NAME} -k ${OPENSEARCH_DASHBOARDS_VERSION}
+yarn build  -k ${OPENSEARCH_DASHBOARDS_VERSION}
 
 echo
 echo "Create a package copy as latest..."
