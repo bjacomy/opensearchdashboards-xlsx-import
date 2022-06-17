@@ -22,11 +22,11 @@ export function defineRoutes(router: IRouter) {
       validate: false,
     },
     async (context, request, response) => {
-      const data = await context.core.opensearch.legacy.client.callAsCurrentUser('cluster.health')     
+      const data = await context.core.opensearch.client.asCurrentUser.cluster.health     
       //console.log('****************** ', data)
       return response.ok({
         body: {
-          time: Object.keys(data.status)
+          time: Object.keys(data)
         },
       });
     }
@@ -37,7 +37,7 @@ export function defineRoutes(router: IRouter) {
       validate: false,
     },
     async (context, request, response) => {
-      const data = await context.core.opensearch.legacy.client.callAsCurrentUser('cat.indices')     
+      const data = await context.core.opensearch.client.asCurrentUser.cat.indices     
       //console.log('****************** ', data)
       return response.ok({
         body: {
@@ -63,7 +63,7 @@ export function defineRoutes(router: IRouter) {
      async  (context, request, response) => {
      try {
         //console.log('******************  create indice',request);
-        const data = await context.core.opensearch.legacy.client.callAsCurrentUser('indices.create',{index: request.params.index});    
+        const data = await context.core.opensearch.client.asCurrentUser.indices.create(request.params.index);    
         //console.log('****************** ', data)
         return response.ok({
           body: {
@@ -94,7 +94,7 @@ export function defineRoutes(router: IRouter) {
       async (context, request, response) => {
         try {
           //console.log('******************  create indice mapping',request);
-          const data = await context.core.opensearch.legacy.client.callAsCurrentUser('indices.putMapping',{index: request.params.index, body: {"properties":request.body.body}});    
+          const data = await context.core.opensearch.client.asCurrentUser.indices.putMapping(request.params.index, request.body.body);    
           //console.log('****************** ', data)
           return response.ok({
             body: {
@@ -126,10 +126,10 @@ export function defineRoutes(router: IRouter) {
         try {
           //console.log('******************  bulk indice',request);
           const pipeline = request.query.pipeline || false;
-          const data  = await await context.core.opensearch.legacy.client.callAsCurrentUser('bulk', {
+          const data  = await await context.core.opensearch.client.asCurrentUser.bulk( {
             ...(pipeline && { pipeline }),
             body: request.body
-        });  
+        }); 
           //console.log('****************** ', data)
           return response.ok({
             body: {
@@ -158,7 +158,7 @@ export function defineRoutes(router: IRouter) {
       },
           async (context, request, response) => {
             try {
-              const data = await context.core.opensearch.legacy.client.callAsCurrentUser('indices.get',{index: request.params.index});
+              const data = await context.core.opensearch.client.asCurrentUser.indices.get(request.params.index);
               return response.ok({
                 body: {
                   data: data,
