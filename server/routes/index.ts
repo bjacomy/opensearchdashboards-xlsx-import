@@ -1,5 +1,6 @@
 
 import { schema } from '@osd/config-schema';
+import { errors } from '@opensearch-project/opensearch';
 import { IRouter} from '../../../../src/core/server';
 
 export function defineRoutes(router: IRouter) {
