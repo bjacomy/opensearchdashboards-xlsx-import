@@ -1,10 +1,10 @@
 {
   "name": "opensearchdashboards-xlsx-import",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "description": "Import XLSX/CSV to Elasticsearch indices",
   "opensearchDashboards": {
-    "version": "2.4.1",
-    "templateVersion": "2.4.1"
+    "version": "2.5.0",
+    "templateVersion": "2.5.0"
   },
   "scripts": {
     "osd": "node ../../scripts/osd",
